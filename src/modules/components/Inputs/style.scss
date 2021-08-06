@@ -1,0 +1,19 @@
+@import '../../assets/variables.scss';
+
+.fg-inputlogin{
+    .fg-input-login{
+        width: 16em;
+        height: 2.5em;
+        padding: 0px 10px;
+        margin-bottom: 10px; 
+        border-radius: 5px;
+        border-width: 0;
+        background-color: #eceff1;
+        font-weight: bold;
+        font-size: 1em;
+        @media (max-width: 310px) {
+            width: 15em;
+        }
+    }
+    
+}

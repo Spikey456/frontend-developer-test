@@ -1,0 +1,28 @@
+@import '../../assets//variables.scss';
+
+.login-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: $COLOR_login_bg;
+    .login-container{
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 25em;
+        width: 25em;
+        background-color: white;
+        h1{
+            margin-bottom: 1em;
+        }
+        
+   
+    }
+}

@@ -1,45 +1,72 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from '../../../actions/functions';
+import { useDispatch, useSelector } from 'react-redux';
 import * as ReduxActions from '../../../actions/functions';
+import './style.scss';
 import { bindActionCreators } from 'redux';
+import { TextLoginInput } from '../../components/Inputs';
+import { Button } from '../../components/Button';
+import { useHistory } from 'react-router-dom';
+import { ErrorAlert } from '../../components/Alerts';
+import storage from 'redux-persist/lib/storage';
 
-const Login = (props) => {
+const Login = () => {
+
     const dispatch = useDispatch()
+    const history = useHistory();
+    const state = useSelector(state => state.dataReducer)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const { login } = bindActionCreators(ReduxActions, dispatch);
+
     const submitLogin = (e) => {
         e.preventDefault();
-        dispatch(login(email, password))
+        login(email, password)
     }
 
     useEffect(() => {
-        console.log(props)
-    },[])
-
+        if(state.isLoggedIn && storage.getItem('token')){
+            history.push('/devices')
+        }
+    },[state, history])
+    
     return (
-        <div>
-            <form onSubmit={submitLogin}>
-            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-            <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-            <input type="submit" value="Submit"/>
-            </form>
+        <div className='login-page'>
+            <div className="login-container">
+                <h1>Login</h1>
+                <form onSubmit={submitLogin}>
+                    <TextLoginInput 
+                        name='email'
+                        id='email'
+                        type='email'
+                        value={email}
+                        required={true}
+                        onChange={e => setEmail(e.target.value)}
+                        placeholder='E-mail'
+                        className={'login'}
+                    />
+                    <TextLoginInput 
+                        name='password'
+                        id='password'
+                        type='password'
+                        required={true}
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        className={'login'}
+                        placeholder='Password'
+                    />
+                    {state.error && (
+                        <ErrorAlert error={state.error}/>
+                    )}
+                    
+                    <Button type="submit">
+                        Submit
+                    </Button>
+                </form>
+            </div>
         </div>
     )
-}
-
-function mapStateToProps(state) {
-    return {
-        product_list: state.dataReducer.product_list,
-        loading: state.dataReducer.loading,
-        error: state.dataReducer.error
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(ReduxActions, dispatch);
 }
 
 export default Login

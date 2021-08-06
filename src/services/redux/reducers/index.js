@@ -3,9 +3,11 @@ import * as constants from '../constants'
 
 
 let dataState = {
-    data: '',
+    devices: null,
+    isLoggedIn: false,
     loading: false,
     error: null,
+    notifSent: false,
 }
 
 const dataReducer = (state = dataState, action) => {
@@ -14,22 +16,86 @@ const dataReducer = (state = dataState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
+                notifSent: false,
             }
         case constants.LOGIN_SUCCESS:
             state = Object.assign({}, state, {
-                data: action.login_data,
+                ...state,
+                isLoggedIn: action.isLoggedIn,
                 loading: false,
                 error: null,
+                notifSent: false,
             })
             return state;
         case constants.LOGIN_ERROR:
-            state = {
+            return{
+                ...state,
+                loading: false,
+                error: action.error,
+                notifSent: false,
+            }
+        case constants.LOGOUT:
+            return{
+                ...state,
+                isLoggedIn: false,
+                loading: false,
+                error: null,
+                notifSent: false,
+            }
+
+        case constants.GET_DEVICES_REQUEST:
+            return{
                 ...state,
                 loading: true,
-                error: action.error
+                error: null,
+                notifSent: false,
             }
+        case constants.GET_DEVICES_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.error,
+                notifSent: false,
+            }
+        case constants.GET_DEVICES:
+            state = Object.assign({}, state, {
+                ...state,
+                devices: action.devices,
+                loading: false,
+                error: null,
+                notifSent: false,
+            })
             return state;
+        case constants.SEND_NOTIF:
+            return{
+                ...state,
+                loading: false,
+                error: null,
+                notifSent: true,
+            }
+        case constants.SEND_NOTIF_CLOSE:
+            return{
+                ...state,
+                loading: false,
+                error: null,
+                notifSent: false,
+            }
+
+        case constants.SEND_NOTIF_ERROR:
+            return{
+                ...state,
+                loading: false,
+                error: action.error,
+                notifSent: false
+            }
+        case constants.SEND_NOTIF_REQUEST:
+            return{
+                ...state,
+                loading: true,
+                error: null,
+                notifSent: false,
+            }
         default: 
             return state;
         

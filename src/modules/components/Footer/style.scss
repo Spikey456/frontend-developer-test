@@ -1,0 +1,25 @@
+
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    height: 9em;
+    background: rgba(14, 14, 14, 0.507);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .footer-btns-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        
+    }
+    .message-area{
+        margin: 10px;
+    }
+}

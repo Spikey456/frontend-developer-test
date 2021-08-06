@@ -1,0 +1,100 @@
+#rotator {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 20rem;
+    height: 20rem;
+    animation: rotations 5s linear infinite;
+    //border: 1px orange dashed;
+    border-radius: 50%;
+  }
+  
+  #rotator:before, #rotator:after {
+    position: absolute;
+    content: '';
+    display: block;
+    text-align: center;
+    height: 3rem;
+    width: 3rem;
+    //animation: inherit;
+    //animation-direction: reverse;
+  }
+  
+  #rotator:before {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+  
+  
+  
+  @keyframes rotations {
+    0%  { -webkit-transform: rotate(0deg) scale(1); }
+    25%  { -webkit-transform: rotate(90deg) scale(1); }
+    50%  { -webkit-transform: rotate(180deg) scale(1); }
+    75%  { -webkit-transform: rotate(270deg) scale(1); }
+    100%  { -webkit-transform: rotate(360deg) scale(1); }
+  }
+
+  $num-elements: 12;
+  $angle: (360 / $num-elements);
+  $rot: 0;
+  $circle-size: 50px;
+  $radius: 500px;
+
+  .container{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: $radius+150px;
+    height: $radius+150px;
+    transform: translate(-50%, -50%);
+    animation: anims 12s linear infinite;
+    border-radius: 50%;
+  }
+
+  .container div{
+        width: $circle-size;
+        height: $circle-size;
+        background: white;
+        animation: fadeInAnimation ease 1s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        border-radius: 50%;
+        margin: -($circle-size/2);
+  }
+
+    @keyframes fadeInAnimation {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+            }
+    }
+
+  @for $i from 1 through $num-elements{
+      .container div:nth-child(#{$i}){
+          transform: rotate($rot * 1deg) translate($radius/2) rotate($rot * -1deg)
+      }
+      $rot: $rot + $angle
+  }
+
+  
+  @keyframes anims {
+    0%  { -webkit-transform: rotate(0deg) scale(1); }
+    25%  { -webkit-transform: rotate(90deg) scale(1); }
+    50%  { -webkit-transform: rotate(180deg) scale(1); }
+    75%  { -webkit-transform: rotate(270deg) scale(1); }
+    100%  { -webkit-transform: rotate(360deg) scale(1); }
+  }
