@@ -85,7 +85,6 @@ export function notify(){
                 repoUrl: 'https://github.com/Spikey456/frontend-developer-test',
                 message: "One bird can't make a pun. But toucan."
             }
-            console.log(payload)
             await axios.create(config).post(URL.NOTIF, payload)
             .then(() => {
                 dispatch({

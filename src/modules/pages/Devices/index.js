@@ -29,7 +29,6 @@ const Devices = () => {
 
     useEffect(() => {
         if(!(state.isLoggedIn && storage.getItem('token'))){
-            console.log('logged out')
             history.push('/')
         }
     },[state, history])
